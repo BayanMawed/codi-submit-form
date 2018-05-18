@@ -1,0 +1,478 @@
+import React, { Component } from 'react';
+import { Button, Grid, Row, Thumbnail, Col } from 'react-bootstrap';
+import { Nav, ButtonGroup, NavItem, Tab,Modal,FormGroup,FormControl,ControlLabel,HelpBlock} from 'react-bootstrap';
+// import { Alert } from 'react-bootstrap';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+import Stagger from "react-css-stagger";
+// import { CSSTransition } from "react-transition-group";
+
+// class AlertDismissable extends React.Component {
+//   constructor(props, context) {
+//     super(props, context);
+
+//     this.handleDismiss = this.handleDismiss.bind(this);
+//     this.handleShow = this.handleShow.bind(this);
+
+//     this.state = {
+//       show: true
+//     }
+//   }
+
+
+//   handleDismiss() {
+//     this.setState({ show: false });
+//   }
+
+//   handleShow() {
+//     this.setState({ show: true });
+//   }
+
+//   render() {
+//     if (this.state.show) {
+//       return (
+//         <Alert bsStyle="info" onDismiss={this.handleDismiss}>
+//           <h4>Added to list</h4>
+//           <Button onClick={this.handleDismiss}>Hide Alert</Button>
+//         </Alert>
+//       );
+//     }
+
+//     return <Button onClick={this.handleShow}>Show Alert</Button>;
+//   }
+// }
+
+const FieldGroup = ({ id, label, help, ...props }) => {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+} 
+
+const FormInstance = () => {
+  return (<div>
+    <FieldGroup
+      id="formControlsText"
+      type="text"
+      label="Company Name"
+      placeholder="Enter Your Company's Name"
+    />
+    <FieldGroup
+      id="formControlsEmail"
+      type="email"
+      label="Email address"
+      placeholder="Enter email"
+    />
+    <FieldGroup
+      id="formControlsFile"
+      type="file"
+      label="Upload Something:"
+      // help="Example block-level help text here."
+    />
+    
+    <FormGroup controlId="formControlsTextarea" bsSize ="large">
+      <ControlLabel>Message</ControlLabel>
+      <FormControl componentClass="textarea" placeholder="Write Something..." />
+    </FormGroup>
+
+    {/* <FormGroup>
+      <ControlLabel>Static text</ControlLabel>
+      <FormControl.Static>email@example.com</FormControl.Static>
+    </FormGroup> */}
+
+    <Button type="submit">Submit</Button>
+  </div>
+  )};
+
+
+class Example extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    this.state = {
+      show: false
+    };
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+
+  render() {
+    return (
+      <div>
+        <Button bsStyle="primary" bsSize="medium" onClick={this.handleShow}>
+          Contact {this.props.name}
+        </Button>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Codi Cycle 2</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {/* Form Instance */}
+            {/* Student Rating  */}
+            <h1>Contact {this.props.name}</h1>
+            <FormInstance />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
+}
+
+
+const create_student = (gender,name, availability, skills,city,image) => 
+{ return { 
+    gender,
+    name, 
+    availability,
+    skills,
+    city
+  }
+}
+
+const students = [
+  create_student('M','Adam', '3', ['PHP','javascript'] ,'beirut'),
+  create_student('M','mostafa', '1', ['HTML','LARAVEL'],'beirut'),
+  create_student('M','ninja', '2', ['PHP','CSS','HTML'],'saida'),
+  create_student('M','pirate', '3', ['PHP','WORDPRESS'],'jbeil'),
+  // create_student('F','mimi', 'available', 'LARAVEL', 'Reading', 'yes'     ,'beirut'),
+  // create_student('M','Ahmad', '2', 'REACT', 'Sport', 'yes'  ,'saida'),
+  // create_student('M','Amjad', 'available', 'HTML', 'Swimming', 'yes','tripoli'),
+  // create_student('F','Hala', 'available', 'javascript', 'Reading', 'yes'    ,'jounyeh'),
+  // create_student('M','Rami', 'available', 'WORDPRESS', 'Sport', 'yes'   ,'jbeil'),
+  // create_student('F','Rima', '1', 'LARAVEL', 'Walking', 'yes'  ,'tyre'),
+  // create_student('M','batata', '1', 'javascript', 'Reading', 'yes'     ,'beirut'),
+  // create_student('M','samir', '2', 'REACT', 'Reading', 'yes'     ,'beirut'),
+  // create_student('M','joseph', '3', 'HTML', 'Reading', 'yes'     ,'saida'),
+  // create_student('M','jad', '1', 'CSS', 'Reading', 'yes'     ,'jbeil'),
+  // create_student('M','pokemon', 'available', 'WORDPRESS', 'Reading', 'yes'     ,'beirut'),
+  // create_student('M','turtle', 'available', 'PHP', 'Sport', 'yes'  ,'saida'),
+  // create_student('M','bob', '1', 'javascript', 'Swimming', 'yes','tripoli'),
+  // create_student('M','zoro', '2', 'PHP', 'Reading', 'yes'    ,'jounyeh'),
+  // create_student('M','superman', '3', 'WORDPRESS', 'Sport', 'yes'   ,'jbeil'),
+  // create_student('M','spiderman', 'available', 'LARAVEL', 'Walking', 'yes'  ,'tyre')
+]
+const Student = ({gender,name,availability,skills,city,OnClickAdd,image}) => (
+  <Col xs={1} md={4}>
+    <Thumbnail >
+      {/* <Image src={image} width="150px" height="150px" circle /> */}
+      <div className='student-image' style={{ backgroundImage: `url(${image})` }} > </div>
+      <h2>{name}</h2>
+      <h3>City: {city}</h3>
+      <h3>Availability: </h3>
+      <p>{availability}</p>
+      <h3>Skills: </h3>
+      <p> {skills.map((s) =>
+          <p>#{ ' ' + skills.s}</p>
+        ) 
+      } 
+      </p>
+      <hr />
+      <p>
+      {/* <Button bsStyle="primary">See More</Button>&nbsp; */}
+      <Example name={name} />
+      <Button bsStyle="success" onClick={OnClickAdd}>Add to list</Button>
+      </p>
+    </Thumbnail>
+  </Col>
+)
+const StudentSelected = ({gender,name,availability,skills,city,OnClickRemove,image}) => (
+  <Col xs={1} md={4}>
+    <Thumbnail >
+      {/* <Image src={image} width="150px" height="150px" circle /> */}
+      <div className='student-image' style={{ backgroundImage: `url(${image})` }} > </div>
+      <h2>{name}</h2>
+      <h3>City: {city}</h3>
+      <h3>Availability: </h3>
+      <p>{availability}</p>
+      <h3>Skills: </h3>
+      <p>{skills}</p>
+      <hr />
+      <p>
+      {/* <Button bsStyle="primary">See More</Button>&nbsp; */}
+      <Example name={name} />
+      <Button bsStyle="danger" onClick={OnClickRemove}>Remove from list</Button>
+      </p>
+    </Thumbnail>
+  </Col>
+)
+
+class StudentTalent extends Component {
+  state = {
+    cityFilter: "",
+    skillFilter:"",
+    availableFilter:"",
+    genderFilter:'',
+    search:"",
+    two:false,
+    userSelectedList:[],
+    show_selected_students:false
+  }
+  randomStudentList = (a) => { // Fisher-Yates shuffle, no side effects
+    var i = a.length, t, j;
+    a = a.slice()
+    if(i===0){return []}
+    while (--i){
+      t = a[i]
+      a[i] = a[j = ~~(Math.random() * (i + 1))]
+      a[j] = t
+    }
+    return a
+  }
+  renderFilteredStudents() {
+    const city = this.state.cityFilter;
+    const skill = this.state.skillFilter;
+    const available = this.state.availableFilter;
+    const gender = this.state.genderFilter
+    const two = this.state.two;
+    const filteredStudents = students.filter( student => {
+      if(city){
+        if(student.city !== city){return false}
+      }
+      if(gender){
+        if(student.gender !== gender){return false}
+      }
+      if(skill){
+        const student_has_skill = student.skills.some(student_skill=>student_skill===skill)
+        // console.log(student.skills,skill,student_has_skill)
+        if(student_has_skill === false){
+          return false
+        }
+      }
+      if(available){
+        if(student.availability !== available){ return false}
+      }
+      return true
+    })
+    const studentList = this.randomStudentList(filteredStudents)
+    const finalStudentList = two ? studentList.slice(0,2) : studentList
+    const reactStudents = finalStudentList.map(
+      (student) => <Student  OnClickAdd={() => this.AddStudentToList(student)}  image={'/images/'+student.name+'.jpeg'} {...student} key={student.name}/> 
+    )
+    return reactStudents;
+ }
+ 
+   setCityFilter = (cityFilter) => {
+     this.setState({ cityFilter ,two:'', show_selected_students:false })
+    };
+   removeCityFilter = () => {
+    // const cityFilter = this.state.cityFilter
+     this.setState({ cityFilter:'' ,two:'', show_selected_students:false })
+    };
+   setSkillFilter = (skillFilter) => {
+     this.setState({ skillFilter, two:'', show_selected_students:false })
+    };
+   removeSkillFilter = () => {
+     this.setState({ skillFilter:'' ,two:'', show_selected_students:false })
+    };
+   setAvailabileFilter = (availableFilter) => {
+     this.setState({ availableFilter, two:'', show_selected_students:false })
+    };
+   removeAvailabileFilter = () => {
+     this.setState({ availableFilter:'' ,two:'', show_selected_students:false })
+    };
+   setgenderFilter = (genderFilter) => {
+     this.setState({ genderFilter, two:'', show_selected_students:false })
+    };
+   removegenderFilter = () => {
+     this.setState({ genderFilter:'' ,two:'', show_selected_students:false })
+    };
+   showAll = () => {
+     this.setState({ cityFilter:'', skillFilter:'',availableFilter:'',genderFilter:'',two:'', show_selected_students:false })
+   };
+   showTwo = () => {
+     this.setState({ two:true, cityFilter:'', skillFilter:'',availableFilter:'', show_selected_students:false })
+   };
+   
+  showSelected = () => {
+    this.setState({ show_selected_students:true })
+   };
+
+  AddStudentToList = (student) => {
+     const userSelectedList = this.state.userSelectedList.slice()
+     userSelectedList.push(student);
+     alert("Student has been added successfully")
+     this.setState({userSelectedList})
+   };
+   OnClickRemove = (student) => {
+    const index = this.state.userSelectedList.indexOf(student)
+    if (index < 0) {
+      return;
+    }
+      const selected = this.state.userSelectedList.slice();
+      selected.splice(index, 1);
+      this.setState({ userSelectedList:selected });
+    } 
+
+  // showAddToList =() => {
+  //    let userList = []
+  //    let element = create_student('mohammad', '1', 'DRUPAL', 'Walking', 'yes'  ,'tyre')
+  //   //  console.log(userList)
+  //   userList = this.state.userList.slice()
+  //   userList.push(element)
+  //   this.setState({ userList:userList,studentAdded:true,two:false ,all:false, cityFilter:'', skillFilter:'',availableFilter:'' })
+  //  };
+
+  renderSelectedStudents(){
+    return this.state.userSelectedList.map(
+        (student) => <StudentSelected  OnClickRemove={() => this.OnClickRemove(student)} OnClickAdd={() => this.AddStudentToList(student)}   image={'/images/'+student.name+'.jpeg'} {...student} key={student.name}/> 
+      )
+   }
+
+  renderStudents(){
+    if(this.state.show_selected_students){
+      return this.renderSelectedStudents()
+    }else{
+      return this.renderFilteredStudents() 
+    }
+  }
+
+  render() {
+    const students_list = this.renderStudents()
+    
+    return (
+    <div>
+       <div class="multipleFilters">
+          <h3>No filter Selected</h3>
+          { ( this.state.cityFilter? <div className="block city-block">{this.state.cityFilter}
+           <Button bsStyle="danger" onClick = { this.removeCityFilter}>X</Button>
+           </div> : null ) 
+          }
+          { ( this.state.skillFilter? <div className="block skill-block">{this.state.skillFilter}
+          <Button bsStyle="danger" onClick = { this.removeSkillFilter}>X</Button>
+          </div> : null ) 
+          }
+          { ( this.state.availableFilter? <div className="block available-block">{this.state.availableFilter}
+          <Button bsStyle="danger" onClick = { this.removeAvailabileFilter}>X</Button>
+          </div> : null ) 
+          }
+          { ( this.state.genderFilter? <div className="block available-block">{this.state.genderFilter}
+          <Button bsStyle="danger" onClick = { this.removegenderFilter}>X</Button>
+          </div> : null ) 
+          }
+      </div>
+      <div className="filter">
+      
+        <div className="searchBar"> 
+            <input  type="text" placeholder="Search for..." value={this.state.search}/>
+        </div>
+
+    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+  <Row className="clearfix">
+    <Col sm={4}>
+      <Nav bsStyle="pills" stacked>
+        <NavItem eventKey="first">Places</NavItem>
+        <NavItem eventKey="second">Skills</NavItem>
+        <NavItem eventKey="third">Availability</NavItem>
+        <NavItem eventKey="fourth">Show Students</NavItem>
+        <NavItem eventKey="fifth">Gender</NavItem>
+        <NavItem eventKey="sixth">Your List</NavItem>
+      </Nav>
+    </Col>
+    <Col sm={8}>
+      <Tab.Content animation>
+        <Tab.Pane eventKey="first">
+            <ButtonGroup vertical block>
+                <Button onClick={() => this.setCityFilter("beirut")}><h4>Beirut</h4></Button>
+                <Button onClick={() => this.setCityFilter("saida")}><h4>Saida</h4></Button>
+                <Button onClick={() => this.setCityFilter("tripoli")}><h4>Tripoli</h4></Button>
+                <Button onClick={() => this.setCityFilter("jounyeh")}><h4>Jounyeh</h4></Button>
+                <Button onClick={() => this.setCityFilter("jbeil")}><h4>Jbiel</h4></Button>
+                <Button onClick={() => this.setCityFilter("tyre")}><h4>Tyre</h4></Button>
+            </ButtonGroup>
+        </Tab.Pane>
+        <Tab.Pane eventKey="second">
+            <ButtonGroup vertical block>
+                <Button onClick={() => this.setSkillFilter("PHP")}>PHP</Button>
+                <Button onClick={() => this.setSkillFilter("REACT")}>REACT</Button>
+                <Button onClick={() => this.setSkillFilter("WORDPRESS")}>WORDPRESS</Button>
+                <Button onClick={() => this.setSkillFilter("DRUPAL")}>DRUPAL</Button>
+                <Button onClick={() => this.setSkillFilter("LARAVEL")}>LARAVEL</Button>
+                <Button onClick={() => this.setSkillFilter("NODE")}>NODE JS</Button>
+                <Button onClick={() => this.setSkillFilter("javascript")}>JAVASCRIPT</Button>
+            </ButtonGroup>
+        </Tab.Pane>
+        <Tab.Pane eventKey="third">
+            <ButtonGroup vertical block>
+                <Button onClick={() => this.setAvailabileFilter("available")}>Available</Button>
+                <Button onClick={() => this.setAvailabileFilter("1")}>In less than 1 month</Button>
+                <Button onClick={() => this.setAvailabileFilter("2")}>In less than 2 month</Button>
+                <Button onClick={() => this.setAvailabileFilter("3")}>3months or more</Button>
+            </ButtonGroup>
+        </Tab.Pane>
+        <Tab.Pane eventKey="fourth">
+          <Button onClick={() => this.showAll()} vertical block>
+            Show All
+          </Button>
+          <Button onClick={() => this.showTwo()} vertical block>
+            Show Two
+          </Button>
+        </Tab.Pane>
+        <Tab.Pane eventKey="fifth">
+          <Button onClick={() => this.setgenderFilter("M")} vertical block>
+            Male
+          </Button>
+          <Button onClick={() => this.setgenderFilter("F")} vertical block>
+            Female
+          </Button>
+        </Tab.Pane>
+
+        <Tab.Pane eventKey="sixth">
+          <Button onClick={() => this.showSelected()} vertical block>
+            Show Your List
+          </Button>
+        </Tab.Pane>
+      </Tab.Content>
+    </Col>
+  </Row>
+</Tab.Container>
+  
+   </div>
+   <div className="student">
+   <Grid>
+      <Row>
+        <ReactCSSTransitionGroup transitionName={"student"} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          { students_list.length ? students_list : <div class="noResult">
+          <h1>no results...</h1>
+          <Button onClick={() => this.showAll()} >
+            Show All Students
+          </Button>
+          </div> 
+        }
+        </ReactCSSTransitionGroup>
+        
+
+      </Row>
+    </Grid>
+    </div>  
+  </div>
+)}
+}
+  
+
+class talentPage extends Component {
+  render() {
+    return (
+      <div>
+      {/* <FilterSection /> */}
+      <StudentTalent />
+      </div>
+    )
+  }
+}
+
+export default talentPage

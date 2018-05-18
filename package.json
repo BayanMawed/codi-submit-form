@@ -1,0 +1,33 @@
+{
+  "name": "coditalentsstudents",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.3",
+    "nodemailer": "^4.6.4",
+    "nodemon": "^1.17.4",
+    "qs": "^6.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd back && npm start",
+    "client": "cd client && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "back": "cd back && npm install",
+    "front": "cd client && npm install",
+    "install": "concurrently \"npm run back\" \"npm run front\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadkhoja/CodiTalentsStudents.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadkhoja/CodiTalentsStudents/issues"
+  },
+  "homepage": "https://github.com/ahmadkhoja/CodiTalentsStudents#readme"
+}
